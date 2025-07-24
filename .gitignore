@@ -38,6 +38,7 @@ out/
 logs/
 tmp/
 .cache/
+sent_items.txt
 
 # ================================================================
 # Editor and IDE Settings
