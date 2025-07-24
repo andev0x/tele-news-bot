@@ -1,44 +1,73 @@
-# Binaries for programs and plugins
+# ================================================================
+# Go Build Artifacts
+# ================================================================
 *.exe
-*.exe~
 *.dll
 *.so
 *.dylib
 *.test
 *.out
 
-# Output of `go coverage`, benchmarks, profiles, etc.
+# Coverage, Benchmark, and Profile Reports
 *.coverprofile
 *.cov
 *.prof
 
-# Vendor directory (if not using Go modules)
-/vendor/
+# Delve Debug Binary
+__debug_bin
 
-# IDE and Editor settings
-.idea/
-.vscode/
-*.swp
-*.swo
+# Go Workspaces (Go 1.18+)
+go.work
+go.work.sum
 
-# Build output directories
-/bin/
-/build/
-/dist/
+# Vendor (if used with `go mod vendor`)
+vendor/
 
-# Logs and temp files
+# ================================================================
+# Build Output Directories
+# ================================================================
+bin/
+build/
+dist/
+out/
+
+# ================================================================
+# Logs and Temporary Files
+# ================================================================
 *.log
 logs/
 tmp/
 .cache/
 
-# Go workspace files (Go 1.18+)
-/go.work
-/go.work.sum
+# ================================================================
+# Editor and IDE Settings
+# ================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
 
-# OS-generated files
+# ================================================================
+# Environment Configuration Files
+# ================================================================
+.env
+.env.*
+!.env.example
+
+# ================================================================
+# OS-Specific Files
+# ================================================================
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Icon?
 
-# Debug binary (Delve)
-__debug_bin
+# ================================================================
+# Generated Files (Optional: Keep if you use code generation)
+# ================================================================
+generated/
+*.gen.go
+
+
