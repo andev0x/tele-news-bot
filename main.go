@@ -40,20 +40,24 @@ func main() {
 				go func(url string) {
 					defer wg.Done()
 					items := feed.FetchFeed(url)
-					for _, item := range items {
-						if !sentItems[item.Link] {
-							message := fmt.Sprintf("%s\n%s", item.Title, item.Link)
-							notify.SendMessage(b, cfg.ChatID, message)
-							store.MarkSent(item.Link)
-							sentItems[item.Link] = true
-						}
-					}
-				}(feedURL)
-			}
-			wg.Wait()
-			time.Sleep(10 * time.Minute)
-		}
-	}()
+                    log.Printf("Found %d news from %s", len(items), url)
+                    for _, item := range items {
+                        if !sentItems[item.Link] {
+                            log.Printf("Sending new item: %s", item.Title)
+                            message := fmt.Sprintf("%s\n%s", item.Title, item.Link)
+                            notify.SendMessage(b, cfg.ChatID, message)
+                            store.MarkSent(item.Link)
+                            sentItems[item.Link] = true
+                        }
+                    }
+                }(feedURL)
+            }
+            wg.Wait()
+            log.Println("Waiting for next check...")
+            time.Sleep(10 * time.Minute)
+        }
+    }()
 
-	b.Start()
+    log.Println("Bot started! I will now check for news every 10 minutes.")
+    b.Start()
 }
