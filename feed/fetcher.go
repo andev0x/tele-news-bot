@@ -2,6 +2,7 @@ package feed
 
 import (
 	"log"
+	"net/http"
 	"time"
 
 	"github.com/mmcdole/gofeed"
@@ -13,10 +14,16 @@ type Item struct {
 }
 
 func FetchFeed(url string) []Item {
-	parser := gofeed.NewParser()
-	feed, err := parser.ParseURL(url)
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	fp := gofeed.NewParser()
+	fp.Client = client
+
+	feed, err := fp.ParseURL(url)
 	if err != nil {
-		log.Println("Error fetching feed:", err)
+		log.Printf("Error fetching feed from %s: %v", url, err)
 		return nil
 	}
 
