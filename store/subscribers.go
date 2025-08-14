@@ -2,7 +2,7 @@ package store
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"strconv"
@@ -20,9 +20,13 @@ func LoadSubscribers() {
 		log.Println("Error opening subscribers file:", err)
 		return
 	}
-	defer file.Close()
+	defer func() {
+		if err := file.Close(); err != nil {
+			log.Println("Error closing subscribers file:", err)
+		}
+	}()
 
-	data, err := ioutil.ReadAll(file)
+	data, err := io.ReadAll(file)
 	if err != nil {
 		log.Println("Error reading subscribers file:", err)
 		return
@@ -82,7 +86,7 @@ func saveSubscribers() {
 		return
 	}
 
-	if err := ioutil.WriteFile("subscribers.json", data, 0644); err != nil {
+	if err := os.WriteFile("subscribers.json", data, 0644); err != nil {
 		log.Println("Error writing subscribers file:", err)
 	}
 }
