@@ -48,12 +48,22 @@ An example `.env.example` file is provided.
     go mod tidy
     ```
 
-4.  **Run the bot:**
+4.  **Run the bot(test):**
     ```bash
-    go run main.go
+    go run ./cmd/bot/main.go
     ```
 
+**Or** **Build and run the bot:**
+
+```bash
+    go build -o ./bin ./cmd/bot
+    ./bin/bot
+   ```
+
 The bot will start, and you will see log messages in your terminal.
+
+## [License](LICENSE)
+MIT © andev0x
 
 ## Dependencies
 
